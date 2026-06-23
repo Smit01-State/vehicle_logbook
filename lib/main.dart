@@ -147,15 +147,6 @@ class _SplashScreenState extends State<SplashScreen>
                       color: const Color(0xFFF2704E),
                     ),
                   ),
-                  const SizedBox(height: 16),
-                  Text(
-                    'by 220kV Deodar SS',
-                    style: GoogleFonts.inter(
-                      fontSize: 14,
-                      color: Colors.white70,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
                   const SizedBox(height: 48),
                   if (_isLoading)
                     const SizedBox(

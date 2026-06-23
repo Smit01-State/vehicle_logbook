@@ -11,7 +11,6 @@ class AppTheme {
       secondary: _secondaryColor,
       brightness: Brightness.light,
     );
-
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,

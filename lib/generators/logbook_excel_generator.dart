@@ -9,13 +9,15 @@ import '../models/config.dart';
 
 class LogBookExcelGenerator {
   static Future<void> generate(Vehicle vehicle, int month, int year) async {
-    final reports = await DatabaseHelper.instance.getDailyReportsByVehicleAndMonth(
-        vehicle.displayName, month, year);
+    final reports = await DatabaseHelper.instance
+        .getDailyReportsByVehicleAndMonth(vehicle.displayName, month, year);
     final config = await DatabaseHelper.instance.getConfig();
     final monthName = DateFormat('MMMM').format(DateTime(year, month));
 
     if (reports.isEmpty) {
-      throw Exception('No trips found for ${vehicle.vehicleNumber} in $monthName $year');
+      throw Exception(
+        'No trips found for ${vehicle.vehicleNumber} in $monthName $year',
+      );
     }
 
     final excel = Excel.createExcel();
@@ -71,7 +73,9 @@ class LogBookExcelGenerator {
     // Row 0: GETCO title
     sheet.merge(CellIndex.indexByString('A1'), CellIndex.indexByString('L1'));
     final titleCell = sheet.cell(CellIndex.indexByString('A1'));
-    titleCell.value = TextCellValue('Gujarat Energy Transmission Corporation Ltd.');
+    titleCell.value = TextCellValue(
+      'Gujarat Energy Transmission Corporation Ltd.',
+    );
     titleCell.cellStyle = titleStyle;
 
     // Row 1: Division + Vehicle info
@@ -82,24 +86,39 @@ class LogBookExcelGenerator {
 
     sheet.merge(CellIndex.indexByString('E2'), CellIndex.indexByString('I2'));
     final vehCell = sheet.cell(CellIndex.indexByString('E2'));
-    vehCell.value = TextCellValue('Log Book for Vehicle No. ${vehicle.vehicleNumber}');
+    vehCell.value = TextCellValue(
+      'Log Book for Vehicle No. ${vehicle.vehicleNumber}',
+    );
     vehCell.cellStyle = subTitleStyle;
 
     // Row 2: Month
     sheet.merge(CellIndex.indexByString('A3'), CellIndex.indexByString('L3'));
     final monthCell = sheet.cell(CellIndex.indexByString('A3'));
-    monthCell.value = TextCellValue('Entries for the Month of $monthName-$year');
+    monthCell.value = TextCellValue(
+      'Entries for the Month of $monthName-$year',
+    );
     monthCell.cellStyle = subTitleStyle;
 
     // --- Headers (Row 3) ---
     final headers = [
-      'Sr.\nNo.', 'Date', 'Name & Designation\nof Officers', 'Places\nVisited',
-      'Purpose of\nJourney', 'Initial\nKM', 'Start\nTime', 'Final\nKM',
-      'End\nTime', 'Distance\n(km)', 'Duration\n(hrs)', 'Signature',
+      'Sr.\nNo.',
+      'Date',
+      'Name & Designation\nof Officers',
+      'Places\nVisited',
+      'Purpose of\nJourney',
+      'Initial\nKM',
+      'Start\nTime',
+      'Final\nKM',
+      'End\nTime',
+      'Distance\n(km)',
+      'Duration\n(hrs)',
+      'Signature',
     ];
 
     for (int c = 0; c < headers.length; c++) {
-      final cell = sheet.cell(CellIndex.indexByColumnRow(columnIndex: c, rowIndex: 3));
+      final cell = sheet.cell(
+        CellIndex.indexByColumnRow(columnIndex: c, rowIndex: 3),
+      );
       cell.value = TextCellValue(headers[c]);
       cell.cellStyle = headerStyle;
     }
@@ -125,13 +144,19 @@ class LogBookExcelGenerator {
         r.endTime ?? '',
         r.distance?.toStringAsFixed(0) ?? '0',
         r.duration ?? '',
-        isNoTrip ? '' : (r.staff.isNotEmpty ? r.staff.split(',').first.trim() : ''),
+        isNoTrip
+            ? ''
+            : (r.staff.isNotEmpty ? r.staff.split(',').first.trim() : ''),
       ];
 
       for (int c = 0; c < values.length; c++) {
-        final cell = sheet.cell(CellIndex.indexByColumnRow(columnIndex: c, rowIndex: row));
+        final cell = sheet.cell(
+          CellIndex.indexByColumnRow(columnIndex: c, rowIndex: row),
+        );
         cell.value = TextCellValue(values[c]);
-        cell.cellStyle = (c == 2 || c == 3 || c == 4 || c == 11) ? cellStyleLeft : cellStyle;
+        cell.cellStyle = (c == 2 || c == 3 || c == 4 || c == 11)
+            ? cellStyleLeft
+            : cellStyle;
       }
     }
 
@@ -141,11 +166,15 @@ class LogBookExcelGenerator {
       CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: totalRow),
       CellIndex.indexByColumnRow(columnIndex: 8, rowIndex: totalRow),
     );
-    final totalLabelCell = sheet.cell(CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: totalRow));
+    final totalLabelCell = sheet.cell(
+      CellIndex.indexByColumnRow(columnIndex: 0, rowIndex: totalRow),
+    );
     totalLabelCell.value = TextCellValue('Total KMs Travelled');
     totalLabelCell.cellStyle = totalStyle;
 
-    final totalValueCell = sheet.cell(CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: totalRow));
+    final totalValueCell = sheet.cell(
+      CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: totalRow),
+    );
     totalValueCell.value = TextCellValue(totalKm.toStringAsFixed(0));
     totalValueCell.cellStyle = totalStyle;
 
@@ -155,8 +184,12 @@ class LogBookExcelGenerator {
       CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: sigRow),
       CellIndex.indexByColumnRow(columnIndex: 11, rowIndex: sigRow),
     );
-    final sigCell = sheet.cell(CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: sigRow));
-    sigCell.value = TextCellValue('${config?.inchargeDesignation ?? ""}\nGETCO');
+    final sigCell = sheet.cell(
+      CellIndex.indexByColumnRow(columnIndex: 9, rowIndex: sigRow),
+    );
+    sigCell.value = TextCellValue(
+      '${config?.inchargeDesignation ?? ""}\nGETCO',
+    );
     sigCell.cellStyle = CellStyle(
       bold: true,
       fontSize: 10,
@@ -164,16 +197,16 @@ class LogBookExcelGenerator {
     );
 
     // --- Column widths ---
-    sheet.setColumnWidth(0, 6);   // Sr No
-    sheet.setColumnWidth(1, 12);  // Date
-    sheet.setColumnWidth(2, 28);  // Names
-    sheet.setColumnWidth(3, 22);  // Places
-    sheet.setColumnWidth(4, 22);  // Purpose
-    sheet.setColumnWidth(5, 10);  // Ini KM
-    sheet.setColumnWidth(6, 9);   // Start
-    sheet.setColumnWidth(7, 10);  // Final KM
-    sheet.setColumnWidth(8, 9);   // End
-    sheet.setColumnWidth(9, 10);  // Distance
+    sheet.setColumnWidth(0, 6); // Sr No
+    sheet.setColumnWidth(1, 12); // Date
+    sheet.setColumnWidth(2, 28); // Names
+    sheet.setColumnWidth(3, 22); // Places
+    sheet.setColumnWidth(4, 22); // Purpose
+    sheet.setColumnWidth(5, 10); // Ini KM
+    sheet.setColumnWidth(6, 9); // Start
+    sheet.setColumnWidth(7, 10); // Final KM
+    sheet.setColumnWidth(8, 9); // End
+    sheet.setColumnWidth(9, 10); // Distance
     sheet.setColumnWidth(10, 10); // Duration
     sheet.setColumnWidth(11, 14); // Signature
 
@@ -186,6 +219,8 @@ class LogBookExcelGenerator {
     final file = File('${dir.path}/$fileName');
     await file.writeAsBytes(bytes);
 
-    await Share.shareXFiles([XFile(file.path)], text: 'Vehicle LogBook - $monthName $year');
+    await Share.shareXFiles([
+      XFile(file.path),
+    ], text: 'Vehicle LogBook - $monthName $year');
   }
 }

@@ -1,7 +1,5 @@
 # 🚗 Vehicle LogBook & TA Bill Generator
 
-**by 220kV Deodar SS — GETCO**
-
 A premium Flutter Android application for managing vehicle logbooks and generating Travelling Allowance (TA) bills. Originally an Excel VBA workbook (`.xlsm`), this app was fully migrated to a native mobile experience.
 
 > **Version:** 1.3.0 | **Platform:** Android | **Framework:** Flutter
@@ -160,7 +158,7 @@ flutter build apk --release
 
 ### First Launch
 
-1. **Splash Screen** → Animated GETCO branding
+1. **Splash Screen** → Animated branding
 2. **Division Setup** → Enter your division, head quarter, city class, and incharge designation
 3. **Home Screen** → 4 tabs: Daily Reports, Generate, Staff, Settings
 4. **Add Staff & Vehicles** → Go to Staff and Settings tabs to configure
@@ -202,14 +200,13 @@ provider: ^6.1.5        # State management
 
 ## 🏢 About
 
-**Gujarat Energy Transmission Corporation Ltd. (GETCO)**
-220kV Deodar Sub Station
+**General Purpose Use App**
 
 This app digitizes the vehicle logbook and TA bill generation process, replacing the Excel-based workflow with a mobile-first experience that works offline and generates professional documents on-the-go.
 
 ---
 
 <p align="center">
-  <b>Made with ❤️ by 220kV Deodar SS Team</b><br>
+  <b></b><br>
   <i>AI-Assisted Development with Google Gemini</i>
 </p>

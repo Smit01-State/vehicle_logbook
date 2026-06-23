@@ -91,8 +91,7 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
       hqCityClass: _selectedCityClass,
       inchargeDesignation: _selectedDesignation,
       groupJE: _isGroupJE,
-      groupSSName:
-          _isGroupJE ? _groupSSController.text.trim() : null,
+      groupSSName: _isGroupJE ? _groupSSController.text.trim() : null,
     );
 
     final existing = await DatabaseHelper.instance.getConfig();
@@ -111,7 +110,9 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
           content: const Text('Configuration saved successfully!'),
           backgroundColor: Theme.of(context).colorScheme.primary,
           behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
         ),
       );
       if (widget.isEditing) {
@@ -160,7 +161,11 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
                   ),
                   child: Column(
                     children: [
-                      Icon(Icons.business, size: 48, color: colorScheme.onPrimary),
+                      Icon(
+                        Icons.business,
+                        size: 48,
+                        color: colorScheme.onPrimary,
+                      ),
                       const SizedBox(height: 8),
                       Text(
                         'Gujarat Energy Transmission\nCorporation Ltd.',
@@ -176,9 +181,12 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
                 const SizedBox(height: 24),
 
                 // Division Name
-                Text('Division Name', style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                )),
+                Text(
+                  'Division Name',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _divisionController,
@@ -187,15 +195,19 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
                     prefixIcon: Icon(Icons.location_city),
                   ),
                   textCapitalization: TextCapitalization.words,
-                  validator: (v) =>
-                      v == null || v.trim().isEmpty ? 'Please enter Division name' : null,
+                  validator: (v) => v == null || v.trim().isEmpty
+                      ? 'Please enter Division name'
+                      : null,
                 ),
                 const SizedBox(height: 20),
 
                 // Head Quarter
-                Text('Head Quarter', style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                )),
+                Text(
+                  'Head Quarter',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 TextFormField(
                   controller: _hqController,
@@ -204,15 +216,19 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
                     prefixIcon: Icon(Icons.place),
                   ),
                   textCapitalization: TextCapitalization.words,
-                  validator: (v) =>
-                      v == null || v.trim().isEmpty ? 'Please enter Head Quarter name' : null,
+                  validator: (v) => v == null || v.trim().isEmpty
+                      ? 'Please enter Head Quarter name'
+                      : null,
                 ),
                 const SizedBox(height: 20),
 
                 // City Class
-                Text('Head Quarter City Class', style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                )),
+                Text(
+                  'Head Quarter City Class',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 Wrap(
                   spacing: 8,
@@ -234,19 +250,31 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
                 const SizedBox(height: 20),
 
                 // Designation of Incharge
-                Text('Designation of Incharge', style: theme.textTheme.labelLarge?.copyWith(
-                  fontWeight: FontWeight.w600,
-                )),
+                Text(
+                  'Designation of Incharge',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
-                  value: _selectedDesignation.isEmpty ? null : _selectedDesignation,
+                  value: _selectedDesignation.isEmpty
+                      ? null
+                      : _selectedDesignation,
                   decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.badge),
                     hintText: 'Select Designation',
                   ),
-                  items: ['Executive Engineer', 'Deputy Engineer', 'Junior Engineer']
-                      .map((d) => DropdownMenuItem(value: d, child: Text(d)))
-                      .toList(),
+                  items:
+                      [
+                            'Executive Engineer',
+                            'Deputy Engineer',
+                            'Junior Engineer',
+                          ]
+                          .map(
+                            (d) => DropdownMenuItem(value: d, child: Text(d)),
+                          )
+                          .toList(),
                   onChanged: (v) {
                     setState(() {
                       _selectedDesignation = v ?? '';
@@ -304,7 +332,10 @@ class _DivisionSetupScreenState extends State<DivisionSetupScreen>
                         : const Icon(Icons.save),
                     label: Text(
                       _isLoading ? 'Saving...' : 'Save Configuration',
-                      style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),

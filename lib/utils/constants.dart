@@ -1,8 +1,9 @@
 class AppConstants {
+  static const String companyName = 'GETCO';
   static const String appName = 'Vehicle LogBook & TA Bill Generator';
-  static const String appSubtitle = 'by 220kV Deodar SS';
+  static const String appSubtitle = 'General Purpose';
   static const String appVersion = 'V - 1.3';
-  static const String orgName = 'Gujarat Energy Transmission Corporation Ltd.';
+  static const String orgName = '';
 
   static const List<String> designations = [
     'Executive Engineer',
